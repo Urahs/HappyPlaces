@@ -1,11 +1,47 @@
 package com.example.happyplaces
 
+import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import com.example.happyplaces.databinding.ActivityAddHappyPlaceBinding
+import java.util.*
 
-class AddHappyPlaceActivity : AppCompatActivity() {
+class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityAddHappyPlaceBinding
+    private var cal = Calendar.getInstance()
+    private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_happy_place)
+        binding = ActivityAddHappyPlaceBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbarAddPlace)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        binding.toolbarAddPlace.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, month)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        }
+        binding.etDate.setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when(view!!.id){
+            binding.etDate.id -> {
+                DatePickerDialog(
+                    this@AddHappyPlaceActivity,
+                    dateSetListener, cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)
+                ).show()
+            }
+        }
     }
 }
