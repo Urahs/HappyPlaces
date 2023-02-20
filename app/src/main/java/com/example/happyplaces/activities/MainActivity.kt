@@ -1,10 +1,10 @@
-package com.example.happyplaces
+package com.example.happyplaces.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.happyplaces.database.DatabaseHandler
 import com.example.happyplaces.databinding.ActivityMainBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +16,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.fabHappyPlace.setOnClickListener{
-            startActivity(Intent(this,AddHappyPlaceActivity::class.java))
+            startActivity(Intent(this, AddHappyPlaceActivity::class.java))
         }
+
+        getHappyPlacesListFromLocalDB()
+    }
+
+    private fun getHappyPlacesListFromLocalDB(){
+        val dbHandler = DatabaseHandler(this)
+        val getHappyPlaceList = dbHandler.getHappyPlaceList()
     }
 }
