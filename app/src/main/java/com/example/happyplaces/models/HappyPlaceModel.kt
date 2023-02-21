@@ -1,5 +1,7 @@
 package com.example.happyplaces.models
 
+import java.io.Serializable
+
 data class HappyPlaceModel(
     var id: Int,
     var title: String,
@@ -9,4 +11,4 @@ data class HappyPlaceModel(
     var location: String,
     var latitude: Double,
     var longitude: Double,
-)
+): Serializable
