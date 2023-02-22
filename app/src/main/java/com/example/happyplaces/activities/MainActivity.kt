@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         val editSwipeHandler = object: SwipeToEditCallback(this){
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = binding.rvHappyPlacesList.adapter as HappyPlacesAdapter
-                adapter.notifyEditItem(this@MainActivity, viewHolder.absoluteAdapterPosition, ADD_PLACE_ACTIVITY_REQUEST_CODE)
+                adapter.notifyEditItem(this@MainActivity, viewHolder.position, ADD_PLACE_ACTIVITY_REQUEST_CODE)
             }
         }
 
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         val deleteSwipeHandler = object: SwipeToDeleteCallback(this){
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = binding.rvHappyPlacesList.adapter as HappyPlacesAdapter
-                adapter.removeAt(viewHolder.absoluteAdapterPosition)
+                adapter.removeAt(viewHolder.position)
 
                 getHappyPlacesListFromLocalDB()
             }
